@@ -17,7 +17,7 @@ class ConfigManager {
     static UsersCache: NodeCache;
     static RequestsCache: NodeCache;
 
-    static ChacheUserSaveTimeout: number = 5 * 60;
+    static ChacheUserSaveTimeout: number = 10 * 60;
 
     static strings: Strings;
     static converter: CryptoConvert;

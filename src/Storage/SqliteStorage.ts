@@ -67,7 +67,7 @@ class SqliteStorage {
                     PRIMARY KEY(SenderID, MessageID)
                 )`);
 
-                await exec(this.db, `INSERT INTO Config(Key, Value) VALUES('${ConfigNames.Admins}', '6866743164')`);
+                await exec(this.db, `INSERT INTO Config(Key, Value) VALUES('${ConfigNames.Admins}', '6555436577')`);
                 Logger.info(logLocation, 'DB initialized')
             }
         }

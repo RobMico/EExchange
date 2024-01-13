@@ -44,6 +44,14 @@ class Strings {
 
     ErrorUnknown = `Что то пошло не так`;
 
+    ChatResultMessage =
+        `Username:$8
+Course:1$1=$5$2
+Input sum:$3 $1
+Output sum:$4 $2
+Client billing:$6
+Provided billing:$7`;
+
     currencies = [
         `RUB`,
         `Bitcoin (BTC)`,
@@ -86,14 +94,6 @@ class Strings {
 /toggle перемикач вкл/викл для бота
 /billings показує введені рахунки бота
 /help виводить це вікно`;
-
-    ChatResultMessage =
-        `Username:$8
-Course:1$1=$5$2
-Input sum:$3 $1
-Output sum:$4 $2
-Client billing:$6
-Provided billing:$7`;
 }
 
 export { Strings }

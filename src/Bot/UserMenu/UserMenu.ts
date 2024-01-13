@@ -74,12 +74,12 @@ class UserMenu {
     }
 
     async CallWhileWaitingBill(event: Context, user: UserData) {
-        await event.reply(ConfigManager.strings.QuestionAwaitBill, this.getMarkup(user.InputStage));
+        await event.reply(fillString(ConfigManager.strings.QuestionAwaitBill, user), this.getMarkup(user.InputStage));
     }
 
     async CallStart(event: Context, user: UserData) {
         user.InputStage++;// = UserInputStages.SelectFromCurrency;
-        await event.reply(ConfigManager.strings.QuestionGreeting, (this.getMarkup(user.InputStage)));
+        await event.reply(fillString(ConfigManager.strings.QuestionGreeting, user), (this.getMarkup(user.InputStage)));
     }
 
     async CallCooseFromCurrency(event: Context, user: UserData) {
@@ -89,11 +89,11 @@ class UserMenu {
             let message = update.message;
             let short = ConfigManager.strings.CurrenciesToShort[message.text];
             if (!short) {
-                return await event.reply(ConfigManager.strings.ErrorFalseInput,);
+                return await event.reply(fillString(ConfigManager.strings.ErrorFalseInput, user),);
             }
             user.InputStage++;// = UserInputStages.SelectToCurrency;
             user.fromCurrency = short;
-            return await event.reply(ConfigManager.strings.QuestionSelectReceivedCurrency, this.getMarkup(user.InputStage));
+            return await event.reply(fillString(ConfigManager.strings.QuestionSelectReceivedCurrency, user), this.getMarkup(user.InputStage));
         }
 
         return await event.reply(ConfigManager.strings.ErrorUnknown, this.getMarkup(user.InputStage));
@@ -104,10 +104,10 @@ class UserMenu {
             let message = update.message;
             let short = ConfigManager.strings.CurrenciesToShort[message.text];
             if (!short) {
-                return await event.reply(ConfigManager.strings.ErrorFalseInput, this.getMarkup(user.InputStage));
+                return await event.reply(fillString(ConfigManager.strings.ErrorFalseInput, user), this.getMarkup(user.InputStage));
             }
             if (short == user.fromCurrency) {
-                return await event.reply(ConfigManager.strings.ErrorSameCurrency, this.getMarkup(user.InputStage));
+                return await event.reply(fillString(ConfigManager.strings.ErrorSameCurrency, user), this.getMarkup(user.InputStage));
             }
 
 
@@ -118,7 +118,7 @@ class UserMenu {
             return await event.reply(text, this.getMarkup(user.InputStage));
         }
 
-        return await event.reply(ConfigManager.strings.ErrorUnknown, this.getMarkup(user.InputStage));
+        return await event.reply(fillString(ConfigManager.strings.ErrorUnknown, user), this.getMarkup(user.InputStage));
     }
 
     async CallTypeSum(event: Context, user: UserData) {
@@ -129,7 +129,7 @@ class UserMenu {
             try {
                 sum = parseFloat(message.text);
             } catch (ex) {
-                return await event.reply(ConfigManager.strings.ErrorSumInput);
+                return await event.reply(fillString(ConfigManager.strings.ErrorSumInput, user));
             }
 
             user.InputStage++;// = UserInputStages.SelectBill;
@@ -149,16 +149,16 @@ class UserMenu {
             let message = update.message;
             if (message.text === ConfigManager.strings.ButtonTextConfirm) {
                 user.InputStage = UserInputStages.SendCheque;
-                return await event.reply(ConfigManager.strings.QuestionCheque, this.getMarkup(user.InputStage));
+                return await event.reply(fillString(ConfigManager.strings.QuestionCheque, user), this.getMarkup(user.InputStage));
             } else if (message.text === ConfigManager.strings.ButtonTextCancel) {
                 user.InputStage++;// = UserInputStages.AwaitingStart;
                 user.fromCurrency = null;
                 user.toCurrency = null;
                 user.sumToExchange = null;
                 user.sumToReceive = null;
-                return await event.reply(ConfigManager.strings.QuestionCancelChoose, this.getMarkup(user.InputStage));
+                return await event.reply(fillString(ConfigManager.strings.QuestionCancelChoose, user), this.getMarkup(user.InputStage));
             } else {
-                return await event.reply(ConfigManager.strings.ErrorFalseInput);
+                return await event.reply(fillString(ConfigManager.strings.ErrorFalseInput, user));
             }
         }
     }
@@ -195,7 +195,7 @@ class UserMenu {
                 } else {
                     user.InputStage = UserInputStages.AwaitingExchangeBill;
                     ConfigManager.connector.requestBill(user);
-                    return await event.reply(ConfigManager.strings.QuestionAwaitBill, this.getMarkup(user.InputStage));
+                    return await event.reply(fillString(ConfigManager.strings.QuestionAwaitBill, user), this.getMarkup(user.InputStage));
                 }
             }
             //user.InputStage++;
